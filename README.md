@@ -18,29 +18,6 @@ Fokus utama proyek ini adalah penerapan **Semaphore**, **Queue**, **Mutex**, dan
 
 ---
 
-## ⚙️ Perangkat yang Digunakan
-
-| No | Perangkat / Komponen     | Fungsi                     | Jenis  | Core Digunakan |
-| -- | ------------------------ | -------------------------- | ------ | -------------- |
-| 1  | ESP32-S3 DevKitC         | Mikrokontroler utama       | MCU    | Core 0 & 1     |
-| 2  | Sensor IR / Limit Switch | Deteksi objek → memicu ISR | Input  | ISR → Core 1   |
-| 3  | Stepper + Driver         | Menggerakkan conveyor      | Output | Core 0/1       |
-| 4  | Servo Motor              | Menggerakkan robot arm     | Output | Core 1         |
-| 5  | OLED SSD1306 (I2C)       | Menampilkan status sistem  | Output | Core 0         |
-
----
-
-## 🧩 Komponen FreeRTOS
-
-| Komponen         | Digunakan Untuk         | Alasan                           |
-| ---------------- | ----------------------- | -------------------------------- |
-| Binary Semaphore | Sensor → Robot Arm      | 1 sinyal = 1 aksi, no event loss |
-| Queue            | Kecepatan conveyor      | Aman antar-core                  |
-| Mutex            | Menjaga akses OLED/I2C  | Tidak terjadi tabrakan penulisan |
-| ISR              | Deteksi objek real-time | Eksekusi cepat, tanpa blocking   |
-
----
-
 ## 🦾 Fungsi Utama Sistem
 ###  1️⃣ Robot Arm Task – Core 1 
 
@@ -65,6 +42,29 @@ Fokus utama proyek ini adalah penerapan **Semaphore**, **Queue**, **Mutex**, dan
 * Aktif saat mendeteksi sinyal FALLING edge.
 * Hanya menjalankan xSemaphoreGiveFromISR() agar tetap cepat.
 * Disimpan di IRAM untuk mempercepat eksekusi ISR.
+
+---
+
+## ⚙️ Perangkat yang Digunakan
+
+| No | Perangkat / Komponen     | Fungsi                     | Jenis  | Core Digunakan |
+| -- | ------------------------ | -------------------------- | ------ | -------------- |
+| 1  | ESP32-S3 DevKitC         | Mikrokontroler utama       | MCU    | Core 0 & 1     |
+| 2  | Sensor IR / Limit Switch | Deteksi objek → memicu ISR | Input  | ISR → Core 1   |
+| 3  | Stepper + Driver         | Menggerakkan conveyor      | Output | Core 0/1       |
+| 4  | Servo Motor              | Menggerakkan robot arm     | Output | Core 1         |
+| 5  | OLED SSD1306 (I2C)       | Menampilkan status sistem  | Output | Core 0         |
+
+---
+
+## 🧩 Komponen FreeRTOS
+
+| Komponen         | Digunakan Untuk         | Alasan                           |
+| ---------------- | ----------------------- | -------------------------------- |
+| Binary Semaphore | Sensor → Robot Arm      | 1 sinyal = 1 aksi, no event loss |
+| Queue            | Kecepatan conveyor      | Aman antar-core                  |
+| Mutex            | Menjaga akses OLED/I2C  | Tidak terjadi tabrakan penulisan |
+| ISR              | Deteksi objek real-time | Eksekusi cepat, tanpa blocking   |
   
 ---
 
@@ -85,6 +85,12 @@ README.md
 ```
 
 ---
+
+## 🔌 Rangkaian Sistem
+
+![Rangkaian Sistem](./Rangkaian RTOS Conveyor.png)
+
+--- 
 
 Video Demo dapat diakses pada tautan berikut : 
 https://drive.google.com/file/d/1TP4ffca7xjXOGnQ75S1rGTs7wljzyM2K/view
