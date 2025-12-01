@@ -84,12 +84,6 @@ platformio.ini
 README.md
 ```
 
----
-
-## 🔌 Rangkaian Sistem
-
-![Rangkaian Sistem](./Rangkaian RTOS Conveyor.png)
-
 --- 
 
 Video Demo dapat diakses pada tautan berikut : 
