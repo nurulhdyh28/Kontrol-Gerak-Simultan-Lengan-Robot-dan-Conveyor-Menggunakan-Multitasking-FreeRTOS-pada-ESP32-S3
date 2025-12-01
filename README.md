@@ -85,3 +85,8 @@ README.md
 ```
 
 ---
+
+Video Demo dapat diakses pada tautan berikut : 
+https://drive.google.com/file/d/1TP4ffca7xjXOGnQ75S1rGTs7wljzyM2K/view
+
+---
